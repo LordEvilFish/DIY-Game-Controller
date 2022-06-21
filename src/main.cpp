@@ -12,8 +12,8 @@ const int VRy1 = A1; // Connect to Analog Pin 1
 const int VRx2 = A2; // Connect to Analog Pin 2
 const int VRy2 = A3; // Connect to Analog Pin 3
 
+//OK I FIXED THE ERROR GUYS
 
-testing = 0; 
 const int xAxis = A0;         // joystick X axis
 const int yAxis = A1;         // joystick Y axis
 // parameters for reading the joystick:
