@@ -1,0 +1,26 @@
+#include <Arduino.h>
+#include <ezButton.h>
+
+ezButton button(16);
+
+void setup() {
+  Serial.begin(9600);
+  button.setDebounceTime(10);
+
+
+
+  Serial.println("----Arduino Start----");
+
+}
+
+
+
+
+void loop(){
+
+    button.loop();
+    if (button.isPressed()){
+        Serial.print("button has been pressed");
+    }    
+  
+}

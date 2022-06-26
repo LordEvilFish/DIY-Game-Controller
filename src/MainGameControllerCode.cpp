@@ -1,19 +1,22 @@
 #include <Arduino.h>
 #include <Keyboard.h>
 #include <Mouse.h>
+#include <ezButton.h>
 
-//ctrl alt  s to open serial monitor in vscode
+//Trigger 1 
+const int RightTriggerPin = 16;
+//Trigger 2 
+const int LeftTriggerPin = 9;
+
 // Joystick 1:
 const int VRx1 = A0; // Connect to Analog Pin 0
 const int VRy1 = A1; // Connect to Analog Pin 1
-
 
 // Joystick 2:
 const int VRx2 = A2; // Connect to Analog Pin 2
 const int VRy2 = A3; // Connect to Analog Pin 3
 
-const int xAxis = A0;         // joystick X axis
-const int yAxis = A1;         // joystick Y axis
+
 // parameters for reading the joystick:
 int range = 12;               // output range of X or Y movement
 int responseDelay = 5;        // response delay of the mouse, in ms
@@ -28,21 +31,21 @@ bool mouseIsActive = true;    // whether or not to control the mouse
   from 0 to <range>
 */
 
-
+int counter = 0;
 
 void Joy1() {
   // Joystick 1:
   if ((analogRead(VRy1) >= 900) && (analogRead(VRx1)) >= 0) {
     Serial.println("w_1");
     Keyboard.press(KEY_UP_ARROW);
-    delay(25);
+
     Keyboard.releaseAll();
   }
 
   else if ((analogRead(VRy1)) <= 10 && (analogRead(VRx1)) >= 0) {
     Serial.println("s_1");
     Keyboard.press(KEY_DOWN_ARROW);
-    delay(25);
+ 
     Keyboard.releaseAll();
     
 
@@ -51,7 +54,7 @@ void Joy1() {
   else if ((analogRead(VRy1)) >= 350 && (analogRead(VRy1)) <= 900 && (analogRead(VRx1)) <= 300) {
     Serial.println("d_1");
     Keyboard.press(KEY_RIGHT_ARROW);
-    delay(25);
+
     Keyboard.releaseAll();
 
   }
@@ -59,7 +62,7 @@ void Joy1() {
   else if ((analogRead(VRy1)) >= 50 && (analogRead(VRy1)) <= 650 && (analogRead(VRx1)) >= 600) {
     Serial.println("a_1");
     Keyboard.press(KEY_LEFT_ARROW);
-    delay(25);
+
     Keyboard.releaseAll();
   }
 
@@ -95,17 +98,48 @@ void Joy2() {
   }
 
 }
+
+void RightTrigger(){
+  if(digitalRead(RightTriggerPin) == LOW){
+
+    Serial.println("Right key pressed ");
+    Mouse.click(MOUSE_RIGHT);
+
+    
+  }
+
+}
+void LeftTrigger(){
+  if(digitalRead(LeftTriggerPin) == LOW){
+    Serial.println("Left key pressed ");
+    Mouse.click(MOUSE_LEFT);
+
+    
+    
+  }
+
+}
+
+
+
+
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
+  pinMode(16, INPUT_PULLUP);
+  pinMode(9, INPUT_PULLUP);
   Keyboard.begin();
   Mouse.begin();
+
   Serial.println("----Arduino Start----");
 
 }
 
+
 void loop() {
   Joy1();
   Joy2();
-
+  RightTrigger();
+  LeftTrigger();
+  
 
 }
