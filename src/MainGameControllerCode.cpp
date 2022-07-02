@@ -25,14 +25,10 @@ int responseDelay = 5;        // response delay of the mouse, in ms
 int threshold = range / 4;    // resting threshold
 int center = range / 2;       // resting position value
 
-
-
-
 /*
   reads an axis (0 or 1 for x or y) and scales the analog input range to a range
   from 0 to <range>
 */
-
 int counter = 0;
 
 void Joy1() {
@@ -50,7 +46,6 @@ void Joy1() {
  
     Keyboard.releaseAll();
     
-
   }
 
   else if ((analogRead(VRy1)) >= 350 && (analogRead(VRy1)) <= 900 && (analogRead(VRx1)) <= 300) {
@@ -58,7 +53,6 @@ void Joy1() {
     Keyboard.press(KEY_RIGHT_ARROW);
 
     Keyboard.releaseAll();
-
   }
 
   else if ((analogRead(VRy1)) >= 50 && (analogRead(VRy1)) <= 650 && (analogRead(VRx1)) >= 600) {
@@ -87,18 +81,12 @@ int readAxis(int thisAxis) {
   return distance;
 }
 
-  // return the distance for this axis:
-
-
 void Joy2() {
-
-
   // read and scale the two axes:
   int xReading = readAxis(A2);
   int yReading = readAxis(A3);
 
   // if the mouse control state is active, move the mouse:
-
   Mouse.move(xReading, yReading, 0);
   
   // read the mouse button and click or not click:
@@ -110,36 +98,22 @@ void Joy2() {
     Mouse.click(MOUSE_LEFT);
     delay(100);
   }
-  
-  
-
   delay(responseDelay);
-
 }
 
 void RightTrigger(){
   if(digitalRead(RightTriggerPin) == LOW){
-
     Serial.println("Right key pressed ");
     Mouse.click(MOUSE_RIGHT);
-
-    
   }
-
 }
+
 void LeftTrigger(){
   if(digitalRead(LeftTriggerPin) == LOW){
     Serial.println("Left key pressed ");
     Mouse.click(MOUSE_LEFT);
-
-    
-    
   }
-
 }
-
-
-
 
 void setup() {
   Serial.begin(9600);
@@ -150,9 +124,7 @@ void setup() {
   Mouse.begin();
 
   Serial.println("----Arduino Start----");
-
 }
-
 
 void loop() {
   Joy1();
